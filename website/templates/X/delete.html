@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container sign-up">
+  <h1 class="container d-flex justify-content-center">{% block title %} Delete Article {% endblock %}</h1>
+  {% for message in get_flashed_messages() %}
+  <div class="container text-danger">{{ message }}</div>
+  {% endfor %}
+
+
+
+
+  <div class="container-fluid" style="margin-top:5px ;">
+    <!-- ------------------------------------ARTICLE-------------------------------------------------------------------------------- -->
+    <main class="container">
+      <div class="container border-bottom p-2 mb-3">
+        <h5 class="d-inline align-content-center" id="articleheading">
+          {% if sort == "new"%}
+          #Newest
+          {% else %}
+          #Oldest
+          {% endif %}
+        </h5>
+        <div class="btn-group d-inline float-right">
+          <button type="button" class="btn btn-sm btn-outline-danger rounded-0 dropdown-toggle" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Sort by
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a href="{{url_for('auth.deletev2' )}}"><button class="dropdown-item" type="button">Newest</button></a>
+            <a href="{{url_for('auth.oldest') }}"><button class="dropdown-item" type="button">Oldest</button></a>
+          </div>
+        </div>
+      </div>
+
+
+
+      <section class="cards">
+        {% for post in posts.items %}
+        <div class="card" onclick="">
+          <a href="/article/{{post['id']}}">
+            <div class="card__image-container rounded-bottom">
+              <img src="/static/articleimg/{{ post['image']  }}" />
+            </div>
+            <div class="card__content">
+              <p class="card__title text--medium ">
+                {{ post['title'] }}
+              </p>
+              <div class="card__info text-justify">
+                {{ post['preview'] }}
+              </div>
+            </div>
+          </a>
+          <div class="card__content justify-content-center">
+            <a href="/delete/{{ post['id'] }}"><button type="submit"
+                class="btn btn-outline-danger rounded-0 btn-block mb-3">Delete</button></a>
+            <a href="/update-article/{{ post['id'] }}"><button type="submit"
+                class="btn btn-outline-danger rounded-0 btn-block ">update</button></a>
+          </div>
+        </div>
+        {%endfor%}
+      </section>
+
+    </main>
+
+    <!-- Pagination Links-->
+    <nav aria-label="Page navigation ">
+      <div class="Page navigation d-flex justify-content-center">
+        <a href="{{ url_for('views.home', page=posts.prev_num) }}" class="btn btn-outline-dark 
+     {% if posts.page == 1 %}disabled{% endif %}">
+          &laquo;
+        </a>
+        <!-- Loop through the number of pages to display a link for each-->
+        {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+        <!-- Check for the active page and set the link to "Active"-->
+        {% if posts.page == page_num %}
+        <a href="{{ url_for('views.home', page=page_num) }}" class="btn btn-dark">
+          {{ page_num }}
+        </a>
+        {% else %}
+        <a href="{{ url_for('views.home', page=page_num) }}" class="btn btn-outline-dark">
+          {{ page_num }}
+        </a>
+        {% endif %}
+        {% else %}
+        ...
+        {% endif %}
+        {% endfor %}
+        <a href="{{ url_for('views.home', page=posts.next_num) }}" class="btn btn-outline-dark 
+     {% if posts.page == posts.pages %}disabled{% endif %}">
+          &raquo;
+        </a>
+      </div>
+    </nav>
+
+
+
+
+
+
+
+  </div>
+
+
+</div>
+{% endblock %}

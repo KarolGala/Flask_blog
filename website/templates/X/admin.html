@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container sign-up">
+ 
+    {% for message in get_flashed_messages() %}
+    <div class="container text-danger">{{ message }}</div>
+    {% endfor %}
+    <div class="container" style="margin-bottom:300px ;">
+        <h3 style="margin-top:50px ;">Hi {% print(user.email) %},</h3>
+        <h5 > the profile section is currently in development, but thank you very much for your registration.  </h5>
+        {% if user.email == "karolgala27@gmail.com" %}
+            <button type="button" class="btn btn-outline-danger"><a href="create-article">Create Article</a></button>
+            <button type="button" class="btn btn-outline-danger"><a href="delete">Delete Article</a></button>
+        {%endif%}
+    </div>
+ 
+</div>
+{% endblock %}

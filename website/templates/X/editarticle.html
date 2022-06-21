@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ ckeditor.load() }}
+
+<script src="https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>
+<div class="container sign-up">
+    <h1 class="container d-flex justify-content-center" >{% block title %} Add a New Post {% endblock %}</h1>
+    {% for message in get_flashed_messages() %}
+    <div class="container text-danger">{{ message }}</div>
+    {% endfor %}
+
+    <form class="container w-75" method="POST" enctype="multipart/form-data">
+        <!-- title input -->
+        <div class="form-outline mb-4">
+        <label class="form-label" for="title">Title</label>
+        <input type="text" name="title"
+               placeholder="Post title"
+               class="form-control text-white bg-dark rounded-0"
+               value="{{ article.title }}"
+               id="title"></input>
+        </div>
+        <div class="form-outline mb-4">
+            <label class="form-label" for="category">Tags/Category</label>
+            <input type="text" name="category"
+                   placeholder="Post title"
+                   class="form-control text-white bg-dark rounded-0"
+                   value="{{ article.category }}"
+                   id="category"></input>
+            </div>
+        <div class="form-outline mb-4">
+            <label class="form-label" for="preview">Preview text</label>
+            <input type="text" name="preview"
+                   placeholder="Post title"
+                   class="form-control text-white bg-dark rounded-0"
+                   value="{{ article.preview }}"
+                   id="preview"></input>
+            </div>
+        <div class="form-outline mb-4" >
+        <input type="file" name="file" class="form-control bg-transparent" style="height: 60px;" autocomplete="off"  >
+        </div>
+        <div class="form-outline mb-4">
+        <label class="form-label" for="content">Content</label>
+        <input type="hidden" name="content" id="quill-html" >
+        <!-- Create the editor container -->
+        {{ ckeditor.create(value = article.title) }}
+        </div>
+        <button type="submit" class="btn btn-outline-danger rounded-0 btn-block mb-4">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

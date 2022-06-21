@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %} Create account {% endblock %}
+{%block content%}
+<div class="container sign_up">
+  <h5 class="container d-flex justify-content-center">Register</h5>
+  {% for message in get_flashed_messages() %}
+  <div class="container text-danger">{{ message }}</div>
+  {% endfor %}
+  <form class="container w-75" method="POST">
+    <!-- first name -->
+    <div class="form-outline mb-4">
+      <input type="text" name="firstName" class="form-control text-white bg-dark rounded-0">
+      <label class="form-label" for="firstName">First Name</label>
+    </div>
+    <!-- last name -->
+    <div class="form-outline mb-4">
+      <input type="text" class="form-control text-white bg-dark rounded-0" name="lastName">
+      <label class="form-label" for="lastName">Last Name</label>
+    </div>
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+      <input type="email" class="form-control text-white bg-dark rounded-0" name="email">
+      <label class="form-label" for="email">Email address</label>
+    </div>
+
+    <!-- Password input -->
+    <div class="form-outline mb-4">
+      <input type="password" class="form-control text-white bg-dark rounded-0" name="password1">
+      <label class="form-label" for="password1">Password</label>
+    </div>
+
+    <div class="form-outline mb-4">
+      <input type="password" class="form-control text-white bg-dark rounded-0" name="password2">
+      <label class="form-label" for="password2">Repeat password</label>
+    </div>
+
+    <!-- 2 column grid layout for inline styling -->
+    <div class="row mb-4">
+      <div class="col d-flex justify-content-center">
+        <!-- Checkbox -->
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+          <label class="form-check-label" for="form2Example31"> Remember me </label>
+        </div>
+      </div>
+
+      <div class="col">
+        <!-- Simple link -->
+        <a href="login" class="text-white">Login</a>
+      </div>
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-outline-danger rounded-0 btn-block mb-4">Register</button>
+
+
+  </form>
+</div>
+{%endblock%}

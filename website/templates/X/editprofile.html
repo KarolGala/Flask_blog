@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %} Create account {% endblock %}
+{%block content%}
+<div class="container sign_up">
+    <h5 class="container d-flex justify-content-center">Edit Profile</h5>
+    {% for message in get_flashed_messages() %}
+    <div class="container text-danger">{{ message }}</div>
+    {% endfor %}
+    <form class="container w-75" method="POST" enctype="multipart/form-data">
+  
+
+         <!-- ig -->
+         <div class="form-outline mb-4">
+            <input type="file" name="file" class="form-control" autocomplete="off" required>
+          </div>
+      
+        <!-- ig -->
+        <div class="form-outline mb-4">
+            <input type="text" name="instagram"
+                   class="form-control text-white bg-dark rounded-0"
+                   value="{{ user.instagram}}">
+            <label class="form-label" for="instagram">Instagram link</label>
+          </div>
+      
+        <!-- fb -->
+        <div class="form-outline mb-4">
+            <input type="text" name="website"
+                   class="form-control text-white bg-dark rounded-0"
+                   value="{{ user.website}}">
+            <label class="form-label" for="website">website</label>
+          </div>
+        
+          <div class="form-outline mb-4">
+            <label class="form-label" for="bio">Profile Bio</label>
+              <textarea name="bio"
+                  placeholder="Write your article here...."
+                  rows="15"
+                  cols="60"
+                  class="form-control text-white bg-dark rounded-0"
+                    id="bio"
+                    >{{ user.bio }}</textarea>
+                   
+            </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-outline-danger rounded-0 btn-block mb-4">Update</button>
+      
+       
+      </form>
+</div>
+{%endblock%}

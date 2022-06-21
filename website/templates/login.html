@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock %}
+{% block content  %}
+<div class="container sign_up">
+    <h4 class="container d-flex justify-content-center">Login</h4>
+    {% for message in get_flashed_messages() %}
+    <div class="container text-danger">{{ message }}</div>
+    {% endfor %}
+    <form class="container w-75" method="post">
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+          <input type="email" id="form2Example1" class="form-control text-white bg-dark rounded-0" name="email"/>
+          <label class="form-label" for="form2Example1">Email address</label>
+        </div>
+      
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+          <input type="password" id="form2Example2" class="form-control text-white bg-dark rounded-0" name="password"/>
+          <label class="form-label" for="form2Example2">Password</label>
+        </div>
+      
+        <!-- 2 column grid layout for inline styling -->
+        <div class="row mb-4">
+          <div class="col d-flex justify-content-center">
+            <!-- Checkbox -->
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked/>
+              <label class="form-check-label" for="form2Example31"> Remember me </label>
+            </div>
+          </div>
+      
+          <div class="col">
+            <!-- Simple link -->
+            <a href="sign-up" class="text-white">Register</a>
+          </div>
+        </div>
+      
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-outline-danger rounded-0 btn-block mb-4">Login</button>
+      
+       
+      </form>
+</div>
+{% endblock %}

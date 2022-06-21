@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block title %} GearRatio - Electronics, Mechanics & more{% endblock %}
+{% block content %}
+
+<!-- ---------------------------------------------CAROUSEL----------------------------------------------------------------------- -->
+<div class="carousel_container">
+  <div id="carouselExampleIndicators" class="carousel slide" data-interval="false" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active" style="position: relative;">
+        <div class="d-block w-100" alt="First slide">
+          <video class="d-block carousel-img  w-100" autoplay muted loop>
+            <!-- Video author Pressmaster: https://www.pexels.com/pl-pl/video/cyfrowa-prezentacja-informacji-na-ekranie-monitora-3130182/ -->
+            <source src="{{url_for('static', filename = 'icons/video.mp4') }}" type="audio/ogg">
+          </video>
+        </div>
+        
+          <h2 class="carousel-heading mb-5 first-slide " id="elementEl" > GearRatio a blog about electronics  </h3>
+ 
+      </div>
+
+
+
+      {% for post in slides_article %}
+      <div class="carousel-item">
+        <a class="carousel-link" href="article/{{post['id']}}">
+          <img class="d-block carousel-img  w-100" src="/static/articleimg/{{ post['image'] }}" alt="Second slide" />
+          <div class="carousel-caption d-none d-block">
+            <h5 class="carousel-heading other-slides" style="margin-bottom: 10px;">{{ post['title'] }}</h5>
+            <p class="carousel-p" >{{ post['preview'] }}</p>
+          </div>
+        </a>
+      </div>
+      {%endfor%}
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+<!-- ------------------------------------ARTICLE-------------------------------------------------------------------------------- -->
+<main class="container">
+  <div class="container border-bottom p-2 mb-3">
+    <h5 class="d-inline align-content-center" id="articleheading">
+       {% if sort == "new"%}
+       #Newest
+      {% else %}
+      #Oldest
+      {% endif %}
+      </h5>
+    <div class="btn-group d-inline float-right">
+      <button type="button" class="btn btn-sm btn-outline-danger rounded-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sort by
+      </button>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a href="{{url_for('views.home' )}}"><button class="dropdown-item" type="button" >Newest</button></a>
+       <a href="{{url_for('views.oldest') }}"><button class="dropdown-item" type="button" >Oldest</button></a> 
+      </div>
+    </div>
+</div>
+
+
+
+  <section class="cards">
+    {% for post in posts.items %}
+    <div class="card" onclick="">
+      <a href="/article/{{post['id']}}">
+        <div class="card__image-container rounded-bottom">
+          <img src="/static/articleimg/{{ post['image']  }}" />
+        </div>
+        <div class="card__content">
+          <p class="card__title text--medium ">
+            {{ post['title'] }}
+          </p>
+          <div class="card__info text-justify">
+            {{ post['preview'] }}
+          </div>
+        </div>
+      </a>
+    </div>
+    {%endfor%}
+  </section>
+
+</main>
+
+<!-- Pagination Links-->
+<nav aria-label="Page navigation ">
+  <div class="Page navigation d-flex justify-content-center">
+    <a href="{{ url_for('views.home', page=posts.prev_num) }}" class="btn btn-outline-dark 
+     {% if posts.page == 1 %}disabled{% endif %}">
+      &laquo;
+    </a>
+    <!-- Loop through the number of pages to display a link for each-->
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if page_num %}
+    <!-- Check for the active page and set the link to "Active"-->
+    {% if posts.page == page_num %}
+    <a href="{{ url_for('views.home', page=page_num) }}" class="btn btn-dark">
+      {{ page_num }}
+    </a>
+    {% else %}
+    <a href="{{ url_for('views.home', page=page_num) }}" class="btn btn-outline-dark">
+      {{ page_num }}
+    </a>
+    {% endif %}
+    {% else %}
+    ...
+    {% endif %}
+    {% endfor %}
+    <a href="{{ url_for('views.home', page=posts.next_num) }}" class="btn btn-outline-dark 
+     {% if posts.page == posts.pages %}disabled{% endif %}">
+      &raquo;
+    </a>
+  </div>
+</nav>
+
+<script>
+  'use strict';
+
+function typeWriter(el) {
+const textArray = el.innerHTML.split('');
+el.innerHTML = '';
+textArray.forEach((letter, i) =>
+  setTimeout(() => (el.innerHTML += letter), 95 * i)
+);
+
+}
+
+typeWriter(elementEl);
+</script>
+
+
+<!-- --------------------------------MOST POPULAR------------------------------------------------------------------------------------ -->
+
+<!-- ----------------------------------------------------------------------------------------------------------------------- -->
+{% endblock %}
